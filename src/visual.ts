@@ -53,6 +53,10 @@ export class Visual implements IVisual {
     }
 
     public update<T>(options: VisualUpdateOptions, viewModel?: T): void {
+
+        // Create easy access to dataView
+        let dataView: DataView = options.dataViews[0];
+
         // Get hehigh and width and set the "base"?! to that size
         let width: number = options.viewport.width;
         let height: number = options.viewport.height;
@@ -74,7 +78,7 @@ export class Visual implements IVisual {
 
         // Updtae text value
         this.textValue
-            .text("Value")
+            .text(<string>dataView.single.value)
             .attr("x", "50%")
             .attr("y", "50%")
             .attr("dy", "0.35em")
@@ -86,7 +90,7 @@ export class Visual implements IVisual {
 
         // Updtae label
         this.textLabel
-            .text("Label")
+            .text(dataView.metadata.columns[0].displayName)
             .attr("x", "50%")
             .attr("y", height / 2)
             .attr("dy", fontSizeValue / 1.2)
