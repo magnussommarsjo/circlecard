@@ -53,7 +53,46 @@ export class Visual implements IVisual {
     }
 
     public update<T>(options: VisualUpdateOptions, viewModel?: T): void {
-        throw new Error("Method not implemented.");
+        // Get hehigh and width and set the "base"?! to that size
+        let width: number = options.viewport.width;
+        let height: number = options.viewport.height;
+        this.svg.attr('width', width);
+        this.svg.attr('height', height);
+        // Calculate radius
+        let radius: number = Math.min(width, height) / 2.2; // 20% smaller size?
+        // Update circle
+        this.circle
+            .style("fill", "white")
+            .style("fill-opacity", 0.5)
+            .style("stroke", "black")
+            .attr("r", radius)
+            .attr("cx", width / 2)
+            .attr("cy", height / 2);
+        
+        // Calculate font size
+        let fontSizeValue: number = Math.min(width, height) / 5;
+
+        // Updtae text value
+        this.textValue
+            .text("Value")
+            .attr("x", "50%")
+            .attr("y", "50%")
+            .attr("dy", "0.35em")
+            .attr("text-anchor", "middle")
+            .style("font-size", fontSizeValue + "px");
+        
+        // Calculate fontSizeLabel
+        let fontSizeLabel: number = fontSizeValue / 4;
+
+        // Updtae label
+        this.textLabel
+            .text("Label")
+            .attr("x", "50%")
+            .attr("y", height / 2)
+            .attr("dy", fontSizeValue / 1.2)
+            .attr("text-anchor", "middle")
+            .style("font-size", fontSizeLabel + "px");
+
     }
     destroy?(): void {
         throw new Error("Method not implemented.");
